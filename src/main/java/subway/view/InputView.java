@@ -12,4 +12,8 @@ public class InputView {
     public String getUserSelectMenu() {
         return scanner.next();
     }
+
+    public String getUserInputPathCriteria() {
+        return scanner.next();
+    }
 }

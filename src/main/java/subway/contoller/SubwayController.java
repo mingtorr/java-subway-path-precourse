@@ -1,6 +1,7 @@
 package subway.contoller;
 
 import subway.domain.MainMenu;
+import subway.domain.PathCriteria;
 import subway.view.InputView;
 import subway.view.OutputView;
 
@@ -14,28 +15,39 @@ public class SubwayController {
     }
 
     public void run() {
-        String menu;
+        MainMenu menu;
         do {
-             menu = printMainMenuSelection();
-
-        }while (MainMenu.isProgramQuit(menu));
+            menu = printMainMenuSelection();
+            PathCriteria inputPathCriteria = getInputPathCriteria();
+            if (PathCriteria.isOptionForFindPath(inputPathCriteria)) {
+                getPath(inputPathCriteria);
+            }
+        } while (MainMenu.isProgramQuit(menu));
     }
 
-    private void printMainMenuList() {
-        OutputView.printMainMenuList();
-    }
-
-    private String printMainMenuSelection() {
+    private MainMenu printMainMenuSelection() {
         try {
-            printMainMenuList();
+            OutputView.printMainMenuList();
             OutputView.printMenuSelection();
             String userSelectMenu = inputView.getUserSelectMenu();
-            MainMenu.validateSelectMenu(userSelectMenu);
-            return userSelectMenu;
-        }
-        catch (Exception ex) {
+            return MainMenu.findByCommand(userSelectMenu);
+        } catch (Exception ex) {
             OutputView.printErrorMessage(ex.getMessage());
             return printMainMenuSelection();
         }
+    }
+
+    private PathCriteria getInputPathCriteria() {
+        try {
+            OutputView.printPathCriteria();
+            OutputView.printPathCriteriaSelection();
+            return PathCriteria.findByCommand(inputView.getUserInputPathCriteria());
+        } catch (Exception ex) {
+            OutputView.printErrorMessage(ex.getMessage());
+            return getInputPathCriteria();
+        }
+    }
+    private void getPath(PathCriteria pathCriteria) {
+
     }
 }
