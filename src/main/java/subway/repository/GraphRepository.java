@@ -1,9 +1,9 @@
 package subway.repository;
 
-import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.DijkstraShortestPath;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.WeightedMultigraph;
+import subway.domain.FindResult;
 import subway.domain.Section;
 import subway.domain.Station;
 
@@ -52,9 +52,10 @@ public class GraphRepository {
         );
     }
 
-    public List<Station> getShortestPath() {
+    public FindResult getShortestPath() {
         DijkstraShortestPath<Station, DefaultWeightedEdge> dijkstraShortestPath = new DijkstraShortestPath<>(graph);
-        return dijkstraShortestPath.getPath(startStation, endStation).getVertexList();
+        List<Station> vertexList = dijkstraShortestPath.getPath(startStation, endStation).getVertexList();
+        return new FindResult(vertexList);
     }
 
 }

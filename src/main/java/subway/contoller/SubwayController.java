@@ -2,13 +2,13 @@ package subway.contoller;
 
 import subway.domain.MainMenu;
 import subway.domain.PathCriteria;
+import subway.domain.FindResult;
 import subway.domain.Station;
 import subway.repository.GraphRepository;
 import subway.repository.StationRepository;
 import subway.view.InputView;
 import subway.view.OutputView;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class SubwayController {
@@ -57,7 +57,7 @@ public class SubwayController {
                 return;
             }
             GraphRepository graphRepository = new GraphRepository(getStartStation(), getEndStation());
-            List<Station> shortestPath = inputPathCriteria.getShortestPath(graphRepository);
+            FindResult shortestPath = inputPathCriteria.getShortestPath(graphRepository);
 
         } catch (Exception ex) {
             OutputView.printErrorMessage(ex.getMessage());
@@ -73,6 +73,11 @@ public class SubwayController {
     private Station getEndStation() {
         OutputView.printInputEndStation();
         return StationRepository.findByName(inputView.getUserInputEndStation());
+    }
+
+    private void printFindResult(FindResult findResult) {
+        OutputView.printFindResult(findResult.getSumOfDistance(), findResult.getSumOfTravelTime());
+
     }
 
 
