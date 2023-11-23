@@ -2,6 +2,8 @@ package subway.contoller;
 
 import subway.domain.MainMenu;
 import subway.domain.PathCriteria;
+import subway.domain.Station;
+import subway.repository.StationRepository;
 import subway.view.InputView;
 import subway.view.OutputView;
 
@@ -18,10 +20,8 @@ public class SubwayController {
         MainMenu menu;
         do {
             menu = printMainMenuSelection();
-            PathCriteria inputPathCriteria = getInputPathCriteria();
-            if (PathCriteria.isOptionForFindPath(inputPathCriteria)) {
-                getPath(inputPathCriteria);
-            }
+            getPath();
+
         } while (MainMenu.isProgramQuit(menu));
     }
 
@@ -47,7 +47,23 @@ public class SubwayController {
             return getInputPathCriteria();
         }
     }
-    private void getPath(PathCriteria pathCriteria) {
 
+    private void getPath() {
+        try {
+            getInputPathCriteria();
+
+
+
+
+
+        } catch (Exception ex) {
+            OutputView.printErrorMessage(ex.getMessage());
+            getPath();
+        }
+    }
+
+    private Station getStartStation() {
+        OutputView.printInputStartStation();
+        return StationRepository.findByName(inputView.getUserInputStartStation());
     }
 }

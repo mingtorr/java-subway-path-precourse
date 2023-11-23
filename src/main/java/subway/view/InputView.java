@@ -16,4 +16,8 @@ public class InputView {
     public String getUserInputPathCriteria() {
         return scanner.next();
     }
+
+    public String getUserInputStartStation() {
+        return scanner.next();
+    }
 }
