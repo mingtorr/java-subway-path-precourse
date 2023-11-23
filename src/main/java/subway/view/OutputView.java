@@ -13,7 +13,7 @@ public class OutputView {
     private static final String MSG_PRINT_MAIN_MENU = "## 메인 화면";
     private static final String MSG_PRINT_PATH_CRITERIA = "## 경로 기준";
     private static final String MSG_PRINT_START_STATION = "## 출발역을 입력하세요.";
-    private static final String MSG_PRINT_END_STATION = "## 출발역을 입력하세요.";
+    private static final String MSG_PRINT_END_STATION = "## 도착역을 입력하세요.";
     private static final String MSG_FIND_RESULT_HEADER = "## 조회 결과";
 
     public static void printErrorMessage(String message) {
@@ -27,7 +27,7 @@ public class OutputView {
         for (MainMenu menu : values) {
             System.out.println(menu.toString());
         }
-        System.out.println("\n");
+        System.out.print("\n");
     }
 
     public static void printMenuSelection() {
@@ -35,35 +35,35 @@ public class OutputView {
     }
 
     public static void printPathCriteria() {
-        System.out.println(MSG_PRINT_PATH_CRITERIA);
+        System.out.println("\n" +MSG_PRINT_PATH_CRITERIA);
         PathCriteria[] values = PathCriteria.values();
 
         for (PathCriteria criteria : values) {
             System.out.println(criteria.toString());
         }
-        System.out.println("\n");
     }
 
     public static void printPathCriteriaSelection() {
-        System.out.println(MSG_MENU_SELECTION);
+        System.out.println("\n" +MSG_MENU_SELECTION);
     }
 
     public static void printInputStartStation() {
-        System.out.println(MSG_PRINT_START_STATION);
+        System.out.println("\n" +MSG_PRINT_START_STATION);
     }
     public static void printInputEndStation() {
-        System.out.println(MSG_PRINT_END_STATION);
+        System.out.println("\n" +MSG_PRINT_END_STATION);
     }
 
     public static void printFindResult(int distance , int TravelTime) {
-        System.out.println(MSG_FIND_RESULT_HEADER);
+        System.out.println("\n" +MSG_FIND_RESULT_HEADER);
         System.out.println("[INFO] ---");
-        System.out.printf("[INFO] 총 거리: %dkm", distance);
-        System.out.printf("[INFO] 총 소요 시간: %d분", TravelTime);
+        System.out.printf("[INFO] 총 거리: %dkm\n", distance);
+        System.out.printf("[INFO] 총 소요 시간: %d분\n", TravelTime);
         System.out.println("[INFO] ---");
     }
 
     public static void printVisitStations(List<Station> stationList) {
-        stationList.forEach(station -> System.out.println(station.getName()));
+        stationList.forEach(station -> System.out.println("[INFO] "+ station.getName()));
+        System.out.print("\n");
     }
 }

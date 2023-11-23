@@ -22,11 +22,13 @@ public class SubwayController {
     public void run() {
         MapInitializer.init();
         MainMenu menu;
-        do {
+        while(true) {
             menu = printMainMenuSelection();
+            if(menu.isQuitOption()){
+                break;
+            }
             getPath();
-
-        } while (menu.isQuitOption());
+        }
     }
 
     private MainMenu printMainMenuSelection() {
@@ -60,7 +62,7 @@ public class SubwayController {
             }
             GraphRepository graphRepository = new GraphRepository(getStartStation(), getEndStation());
             FindResult shortestPath = inputPathCriteria.getShortestPath(graphRepository);
-
+            printFindResult(shortestPath);
         } catch (Exception ex) {
             OutputView.printErrorMessage(ex.getMessage());
             getPath();
@@ -79,8 +81,6 @@ public class SubwayController {
 
     private void printFindResult(FindResult findResult) {
         OutputView.printFindResult(findResult.getSumOfDistance(), findResult.getSumOfTravelTime());
-
+        OutputView.printVisitStations(findResult.getStations());
     }
-
-
 }
