@@ -6,6 +6,7 @@ import subway.domain.FindResult;
 import subway.domain.Station;
 import subway.repository.GraphRepository;
 import subway.repository.StationRepository;
+import subway.utils.MapInitializer;
 import subway.view.InputView;
 import subway.view.OutputView;
 
@@ -19,6 +20,7 @@ public class SubwayController {
     }
 
     public void run() {
+        MapInitializer.init();
         MainMenu menu;
         do {
             menu = printMainMenuSelection();
