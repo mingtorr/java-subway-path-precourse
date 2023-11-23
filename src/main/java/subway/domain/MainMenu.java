@@ -39,8 +39,8 @@ public enum MainMenu {
         return Arrays.stream(MainMenu.values()).anyMatch(menu -> menu.getCommand().equals(value));
     }
 
-    public static boolean isProgramQuit(MainMenu mainMenu) {
-        return QUIT.equals(mainMenu);
+    public boolean isQuitOption() {
+        return MainMenu.QUIT.command.equals(command);
     }
 
     public static MainMenu findByCommand(String command) {

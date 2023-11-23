@@ -1,14 +1,33 @@
 package subway.domain;
 
+import subway.repository.GraphRepository;
 import subway.utils.ValidationUtil;
 
 import java.util.Arrays;
+import java.util.List;
 
 public enum PathCriteria {
 
-    SHORTEST_DISTANCE("1", "최단 거리"),
-    MINIMUM_TIME("2", "최소 시간"),
-    BACK_MENU("b", "돌아가기");
+    SHORTEST_DISTANCE("1", "최단 거리"){
+        @Override
+        List<Station> calculateShortestPath(GraphRepository graphRepository) {
+            graphRepository.setWeightByDistance();
+            return graphRepository.getShortestPath();
+        }
+    },
+    MINIMUM_TIME("2", "최소 시간") {
+        @Override
+        List<Station> calculateShortestPath(GraphRepository graphRepository) {
+            graphRepository.setWeightByTravelTime();
+            return graphRepository.getShortestPath();
+        }
+    },
+    BACK_MENU("B", "돌아가기"){
+        @Override
+        List<Station> calculateShortestPath(GraphRepository graphRepository) {
+            return null;
+        }
+    },;
 
     private final String menuName;
     private final String command;
@@ -44,8 +63,8 @@ public enum PathCriteria {
         return command + ". " + menuName;
     }
 
-    public static boolean isOptionForFindPath(PathCriteria pathCriteria) {
-        return !PathCriteria.BACK_MENU.equals(pathCriteria);
+    public boolean isBackOption() {
+        return PathCriteria.BACK_MENU.command.equals(command);
     }
 
     public static PathCriteria findByCommand(String command) {
@@ -54,4 +73,11 @@ public enum PathCriteria {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(ERR_WRONG_INPUT_PATH_CRITERIA));
     }
+
+    abstract List<Station> calculateShortestPath(GraphRepository graphRepository);
+
+    public List<Station> getShortestPath(GraphRepository graphRepository) {
+        return calculateShortestPath(graphRepository);
+    }
+
 }

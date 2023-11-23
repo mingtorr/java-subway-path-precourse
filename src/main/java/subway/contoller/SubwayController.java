@@ -3,10 +3,12 @@ package subway.contoller;
 import subway.domain.MainMenu;
 import subway.domain.PathCriteria;
 import subway.domain.Station;
+import subway.repository.GraphRepository;
 import subway.repository.StationRepository;
 import subway.view.InputView;
 import subway.view.OutputView;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SubwayController {
@@ -22,7 +24,7 @@ public class SubwayController {
             menu = printMainMenuSelection();
             getPath();
 
-        } while (MainMenu.isProgramQuit(menu));
+        } while (menu.isQuitOption());
     }
 
     private MainMenu printMainMenuSelection() {
@@ -50,7 +52,13 @@ public class SubwayController {
 
     private void getPath() {
         try {
-            getInputPathCriteria();
+            PathCriteria inputPathCriteria = getInputPathCriteria();
+            if(inputPathCriteria.isBackOption()) {
+                return;
+            }
+            GraphRepository graphRepository = new GraphRepository(getStartStation(), getEndStation());
+            List<Station> shortestPath = inputPathCriteria.getShortestPath(graphRepository);
+
         } catch (Exception ex) {
             OutputView.printErrorMessage(ex.getMessage());
             getPath();
