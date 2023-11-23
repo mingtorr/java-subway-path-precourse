@@ -1,14 +1,17 @@
 package subway.domain;
 
+import subway.repository.GraphRepository;
+import subway.repository.StationRepository;
+
 public class Section {
 
     private final Station startStation;
     private final Station endStation;
     private final Distance distance;
 
-    public Section(Station startStation, Station endStation, Distance distance) {
-        this.startStation = startStation;
-        this.endStation = endStation;
+    public Section(String startStation, String endStation, Distance distance) {
+        this.startStation = StationRepository.findByName(startStation);
+        this.endStation = StationRepository.findByName(endStation);
         this.distance = distance;
     }
 
