@@ -51,11 +51,6 @@ public class SubwayController {
     private void getPath() {
         try {
             getInputPathCriteria();
-
-
-
-
-
         } catch (Exception ex) {
             OutputView.printErrorMessage(ex.getMessage());
             getPath();
@@ -66,4 +61,11 @@ public class SubwayController {
         OutputView.printInputStartStation();
         return StationRepository.findByName(inputView.getUserInputStartStation());
     }
+
+    private Station getEndStation() {
+        OutputView.printInputEndStation();
+        return StationRepository.findByName(inputView.getUserInputEndStation());
+    }
+
+
 }

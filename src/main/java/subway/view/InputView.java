@@ -20,4 +20,8 @@ public class InputView {
     public String getUserInputStartStation() {
         return scanner.next();
     }
+
+    public String getUserInputEndStation() {
+        return scanner.next();
+    }
 }

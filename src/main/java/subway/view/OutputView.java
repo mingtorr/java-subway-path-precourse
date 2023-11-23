@@ -9,6 +9,7 @@ public class OutputView {
     private static final String MSG_PRINT_MAIN_MENU = "## 메인 화면";
     private static final String MSG_PRINT_PATH_CRITERIA = "## 경로 기준";
     private static final String MSG_PRINT_START_STATION = "## 출발역을 입력하세요.";
+    private static final String MSG_PRINT_END_STATION = "## 출발역을 입력하세요.";
 
     public static void printErrorMessage(String message) {
         System.out.println(message);
@@ -44,5 +45,8 @@ public class OutputView {
 
     public static void printInputStartStation() {
         System.out.println(MSG_PRINT_START_STATION);
+    }
+    public static void printInputEndStation() {
+        System.out.println(MSG_PRINT_END_STATION);
     }
 }
